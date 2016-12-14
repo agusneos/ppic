@@ -24,7 +24,12 @@ class Mutasi extends CI_Controller {
     
     function showMutasi(){
         if (isset($_GET['grid'])){
-            echo $this->record->showMutasi($_GET['lot']);
+            if ($_GET['lot']==''){
+                echo $this->record->showMutasiItem($_GET['item']);
+            }
+            else{
+                echo $this->record->showMutasi($_GET['lot']);
+            }            
         }
         else{
             $this->load->view('inquiry/mutasi/v_mutasi');
@@ -33,7 +38,12 @@ class Mutasi extends CI_Controller {
     
     function showMutasiDetail(){
         if (isset($_GET['grid'])){
-            echo $this->record->showMutasiDetail($_GET['lot'], $_GET['proc']);
+            if ($_GET['lot']==''){
+                echo $this->record->showMutasiItemDetail($_GET['item'], $_GET['proc']);
+            }
+            else{
+                echo $this->record->showMutasiDetail($_GET['lot'], $_GET['proc']);
+            }            
         }
         else{
             $this->load->view('inquiry/mutasi/v_mutasi_detail');

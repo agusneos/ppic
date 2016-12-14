@@ -32,15 +32,15 @@
         onClickRow      : function(){
            $('#inquiry_mutasi-detail').linkbutton('enable');
         },
-        url             : '<?php echo site_url('inquiry/mutasi/showMutasi'); ?>?grid=true&lot='+lot});
+        url             : '<?php echo site_url('inquiry/mutasi/showMutasi'); ?>?grid=true&lot='+mutasi_lot+'&item='+mutasi_item});
         
     function inquiryMutasiDetail(){            
         rowDetail = $('#grid-inquiry_mutasi').datagrid('getSelected');
         if (rowDetail){
-            var urlDetail     = '<?php echo site_url('inquiry/mutasi/showMutasiDetail'); ?>?lot='+lot+'&proc='+rowDetail.proc;
+            var urlDetail     = '<?php echo site_url('inquiry/mutasi/showMutasiDetail'); ?>?lot='+mutasi_lot+'&item='+mutasi_item+'&proc='+rowDetail.proc;
             $('#dlg-inquiry_mutasi_detail').dialog({
                 title   : 'Detail Proses '+rowDetail.proses,
-                width   : 400,
+                width   : 500,
                 height  : 400,
                 modal   : true,
                 href    : urlDetail

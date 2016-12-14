@@ -1671,7 +1671,7 @@ class CI_DB_active_record extends CI_DB_driver {
 	 *
 	 * @return	string
 	 */
-	protected function _compile_select($select_override = FALSE)
+	function _compile_select($select_override = FALSE) // modif by agus (remove protected)
 	{
 		// Combine any cached components with the current statements
 		$this->_merge_cache();
@@ -2040,6 +2040,34 @@ class CI_DB_active_record extends CI_DB_driver {
 
 		$this->_reset_run($ar_reset_items);
 	}
+        
+        /**
+         * Get SELECT query string
+         *
+         * Compiles a SELECT query string and returns the sql.
+         *
+         * @param    string    the table name to select from (optional)
+         * @param    bool    TRUE: resets QB values; FALSE: leave QB vaules alone
+         * @return    string
+         * ADD BY AGUS
+         */
+        public function get_compiled_select($table = '', $reset = TRUE)
+        {
+            if ($table !== '')
+            {
+                $this->_track_aliases($table);
+                $this->from($table);
+            }
+
+            $select = $this->_compile_select();
+
+            if ($reset === TRUE)
+            {
+                $this->_reset_select();
+            }
+
+            return $select;
+        }
 }
 
 /* End of file DB_active_rec.php */

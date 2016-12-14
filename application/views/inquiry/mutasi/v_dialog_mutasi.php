@@ -41,14 +41,14 @@
         </div>
         <div class="fitem">
             <label for="type">LOT Barang</label>
-            <input type="text" id="mutasi_lot" name="mutasi_lot" style="width:150px;" class="easyui-combobox" required="true"
+            <input type="text" id="mutasi_lot" name="mutasi_lot" style="width:150px;" class="easyui-combobox" 
                 data-options="valueField:'t_po_detail_lot_no', textField:'t_po_detail_lot_no', panelHeight:'150'"/>
         </div>
     </form>
 
 <!-- Dialog Button -->
 <div id="dlg_btn-dialog_mutasi">
-    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="width:75" iconCls="icon-ok" onclick="show_mutasi();">Cetak</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" data-options="width:75" iconCls="icon-ok" onclick="show_mutasi();">Show</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" data-options="width:75" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close');">Batal</a>
 </div>
 
@@ -56,8 +56,9 @@
     function show_mutasi(){
         var isValid = $('#fm-dialog_mutasi').form('validate');
         if (isValid){
-            lot         = $('#mutasi_lot').combobox('getValue');
-            var url     = '<?php echo site_url('inquiry/mutasi/showMutasi'); ?>?lot='+lot;
+            mutasi_lot  = $('#mutasi_lot').combobox('getValue');
+            mutasi_item = $('#mutasi_item').combobox('getValue');
+            var url     = '<?php echo site_url('inquiry/mutasi/showMutasi'); ?>?lot='+mutasi_lot+'&item='+mutasi_item;
             var title   = 'Mutasi WIP';
 
             $('#tt').tabs('close', title);

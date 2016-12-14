@@ -23,3 +23,6 @@ Folder System is safe for update
 get json objects value if its name contains dot(.)
 ex.
 row.a.dept_id --> row['a_dept_id']
+
+remove protected (protected function _compile_select($select_override = FALSE)) line 1674 ->/system/database/DB_active_rec.php
+add new function public function get_compiled_select($table = '', $reset = TRUE) line 2054 ->/system/database/DB_active_rec.php

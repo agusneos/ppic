@@ -19,7 +19,7 @@ class M_prodexcel extends CI_Model
                 LEFT JOIN m_machine ON t_process_machine = m_machine_id
                 LEFT JOIN m_process ON CONCAT_WS("-",t_po_detail_item, t_process_cat) = CONCAT_WS("-",m_process_id, m_process_proc_cat_id)
                 WHERE t_process_cat="'.$proc_id.'" AND t_process_time BETWEEN "'.$start.'" AND "'.$end.'"
-                GROUP BY(nolot)';
+                GROUP BY t_process_shif, t_process_machine, (nolot)';
         
         $query  = $this->db->query($sql);
         

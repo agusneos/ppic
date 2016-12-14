@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>
 
-<table id="grid-inquiry_mutasi_detail"
+<table id="grid-inquiry_rekap_detail"
     data-options="pageSize:50, multiSort:false, remoteSort:false, rownumbers:true, singleSelect:true, 
                 fit:true, fitColumns:true">
     <thead>
@@ -16,10 +16,10 @@
 </table>
 
 <script type="text/javascript">    
-    $('#grid-inquiry_mutasi_detail').datagrid({
-        url             : '<?php echo site_url('inquiry/mutasi/showMutasiDetail'); ?>?grid=true&lot='+mutasi_lot+'&item='+mutasi_item+'&proc='+rowDetail.proc}
+    $('#grid-inquiry_rekap_detail').datagrid({
+        url             : '<?php echo site_url('inquiry/rekap/showRekapDetail'); ?>?grid=true&lot='+rekap_lot+'&item='+rekap_item+'&proc='+rowDetail.proc}
     );
 </script>
 
-<!-- End of file v_mutasi_detail.php -->
-<!-- Location: ./views/inquiry/hutang_supplier/v_mutasi_detail.php -->
+<!-- End of file v_rekap_detail.php -->
+<!-- Location: ./views/inquiry/hutang_supplier/v_rekap_detail.php -->
