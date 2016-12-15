@@ -156,7 +156,7 @@ class M_mutasi extends CI_Model
                             WHERE later.t_process_prod_id = t_process.t_process_prod_id
                             AND later.t_process_id > t_process.t_process_id
                         )
-                        ORDER BY t_prod_sublot, t_prod_card');
+                        ORDER BY t_prod_lot, t_prod_sublot, t_prod_card');
         $totalq     = $this->db->query($sql_total);
         $total      = $totalq->row();
         
@@ -175,7 +175,7 @@ class M_mutasi extends CI_Model
                             WHERE later.t_process_prod_id = t_process.t_process_prod_id
                             AND later.t_process_id > t_process.t_process_id
                         )
-                        ORDER BY t_prod_sublot, t_prod_card');
+                        ORDER BY t_prod_lot, t_prod_sublot, t_prod_card');
         $query      = $this->db->query($sql_query);
         
         $data = array();
@@ -205,7 +205,7 @@ class M_mutasi extends CI_Model
                             WHERE later.t_process_prod_id = t_process.t_process_prod_id
                             AND later.t_process_id > t_process.t_process_id
                         )
-                        ORDER BY t_prod_sublot, t_prod_card');
+                        ORDER BY t_prod_lot, t_prod_sublot, t_prod_card');
         $totalq     = $this->db->query($sql_total);
         $total      = $totalq->row();
         
@@ -222,7 +222,7 @@ class M_mutasi extends CI_Model
                             WHERE later.t_process_prod_id = t_process.t_process_prod_id
                             AND later.t_process_id > t_process.t_process_id
                         )
-                        ORDER BY t_prod_sublot, t_prod_card');
+                        ORDER BY t_prod_lot, t_prod_sublot, t_prod_card');
         $query      = $this->db->query($sql_query);
         
         $data = array();
