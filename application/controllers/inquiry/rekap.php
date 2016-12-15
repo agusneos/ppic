@@ -19,49 +19,37 @@ class Rekap extends CI_Controller {
            
     function showRekapBarang(){
         if (isset($_GET['grid'])){
-            if ($_GET['rekap_periode']==1){
-                echo $this->record->showRekapBarangHarian($_GET['rekap_proses'], $_GET['rekap_tgl']);
-            }
-            elseif ($_GET['rekap_periode']==2) {
-                echo $this->record->showRekapBarangMingguan($_GET['rekap_proses'], $_GET['rekap_tgl']);
-            }
-            elseif ($_GET['rekap_periode']==3) {
-                echo $this->record->showRekapBarangBulanan($_GET['rekap_proses'], $_GET['rekap_tgl']);
-            }
-            else {
-                echo $this->record->showRekapBarangTahunan($_GET['rekap_proses'], $_GET['rekap_tgl']);
-            }
+            echo $this->record->showRekapBarang($_GET['rekap_proses'], $_GET['rekap_tgl_from'], $_GET['rekap_tgl_to']);
         }
         else{
             $this->load->view('inquiry/rekap/v_rekap_barang');
         }
     }
     
-    function showRekap(){
+    function showRekapBarangDetail(){
         if (isset($_GET['grid'])){
-            if ($_GET['lot']==''){
-                echo $this->record->showRekapItem($_GET['item']);
-            }
-            else{
-                echo $this->record->showRekap($_GET['lot']);
-            }            
+            echo $this->record->showRekapBarangDetail($_GET['rekap_proses'], $_GET['rekap_item'], $_GET['rekap_tgl_from'], $_GET['rekap_tgl_to']);
         }
         else{
-            $this->load->view('inquiry/rekap/v_rekap');
+            $this->load->view('inquiry/rekap/v_rekap_barang_detail');
         }
     }
     
-    function showRekapDetail(){
+    function showRekapMesin(){
         if (isset($_GET['grid'])){
-            if ($_GET['lot']==''){
-                echo $this->record->showRekapItemDetail($_GET['item'], $_GET['proc']);
-            }
-            else{
-                echo $this->record->showRekapDetail($_GET['lot'], $_GET['proc']);
-            }            
+            echo $this->record->showRekapMesin($_GET['rekap_proses'], $_GET['rekap_tgl_from'], $_GET['rekap_tgl_to']);
         }
         else{
-            $this->load->view('inquiry/rekap/v_rekap_detail');
+            $this->load->view('inquiry/rekap/v_rekap_mesin');
+        }
+    }
+        
+    function showRekapMesinDetail(){
+        if (isset($_GET['grid'])){
+            echo $this->record->showRekapMesinDetail($_GET['rekap_proses'], $_GET['rekap_item'], $_GET['rekap_mesin'], $_GET['rekap_tgl_from'], $_GET['rekap_tgl_to']);
+        }
+        else{
+            $this->load->view('inquiry/rekap/v_rekap_mesin_detail');
         }
     }
     

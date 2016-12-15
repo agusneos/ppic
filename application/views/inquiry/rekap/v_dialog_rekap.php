@@ -62,18 +62,12 @@
             </select>
         </div>
         <div class="fitem">
-            <label for="type">Tanggal</label>
-            <input  id="rekap_tgl" name="rekap_tgl" class="easyui-datebox" style="width:150px;" required="true">
+            <label for="type">Dari</label>
+            <input  id="rekap_tgl_from" name="rekap_tgl_from" class="easyui-datebox" style="width:150px;" required="true">
         </div>
         <div class="fitem">
-            <label for="type">Periode</label>
-            <select  type="text" id="rekap_periode" name="rekap_periode" style="width:150px;" data-options="panelHeight:'100'" class="easyui-combobox" required="true">
-                <option value="0"></option>
-                <option value="1">Harian</option>
-                <option value="2">Mingguan</option>
-                <option value="3">Bulanan</option>
-                <option value="4">Tahunan</option>
-            </select>
+            <label for="type">Sampai</label>
+            <input  id="rekap_tgl_to" name="rekap_tgl_to" class="easyui-datebox" style="width:150px;" required="true">
         </div>
     </form>
 
@@ -89,14 +83,14 @@
         if (isValid){
             var rekap_jenis = $('#rekap_jenis').combobox('getValue');
             rekap_proses    = $('#rekap_proses').combobox('getValue');
-            rekap_tgl       = $('#rekap_tgl').datebox('getValue');
-            rekap_periode   = $('#rekap_periode').combobox('getValue');
+            rekap_tgl_from  = $('#rekap_tgl_from').datebox('getValue');
+            rekap_tgl_to    = $('#rekap_tgl_to').combobox('getValue');
             var url         = '';
             if (rekap_jenis==1){
-                url         = '<?php echo site_url('inquiry/rekap/showRekapBarang'); ?>?rekap_proses='+rekap_proses+'&rekap_tgl='+rekap_tgl+'&rekap_periode='+rekap_periode;
+                url         = '<?php echo site_url('inquiry/rekap/showRekapBarang'); ?>?rekap_proses='+rekap_proses+'&rekap_tgl_from='+rekap_tgl_from+'&rekap_tgl_to='+rekap_tgl_to;
             }
             else{
-                url         = '<?php echo site_url('inquiry/rekap/showRekapMesin'); ?>?rekap_proses='+rekap_proses+'&rekap_tgl='+rekap_tgl+'&rekap_periode='+rekap_periode;
+                url         = '<?php echo site_url('inquiry/rekap/showRekapMesin'); ?>?rekap_proses='+rekap_proses+'&rekap_tgl_from='+rekap_tgl_from+'&rekap_tgl_to='+rekap_tgl_to;
             }            
             var title       = 'Rekapitulasi Transaksi';
 
@@ -113,4 +107,4 @@
 </script>
 
 <!-- End of file v_dialog_rekap.php -->
-<!-- Location: ./views/inquiry/hutang_supplier/v_dialog_rekap.php -->
+<!-- Location: ./views/inquiry/rekap/v_dialog_rekap.php -->

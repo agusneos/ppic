@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');?>
 
-<table id="grid-inquiry_rekap_detail"
+<table id="grid-inquiry_rekap_mesin_detail"
     data-options="pageSize:50, multiSort:false, remoteSort:false, rownumbers:true, singleSelect:true, 
                 fit:true, fitColumns:true">
     <thead>
@@ -16,10 +16,10 @@
 </table>
 
 <script type="text/javascript">    
-    $('#grid-inquiry_rekap_detail').datagrid({
-        url             : '<?php echo site_url('inquiry/rekap/showRekapDetail'); ?>?grid=true&lot='+rekap_lot+'&item='+rekap_item+'&proc='+rowDetail.proc}
+    $('#grid-inquiry_rekap_mesin_detail').datagrid({
+        url             : '<?php echo site_url('inquiry/rekap/showRekapMesinDetail'); ?>?grid=true&rekap_item='+rowDetail.m_item_id+'&rekap_mesin='+rowDetail.t_process_machine+'&rekap_proses='+rekap_proses+'&rekap_tgl_from='+rekap_tgl_from+'&rekap_tgl_to='+rekap_tgl_to}
     );
 </script>
 
-<!-- End of file v_rekap_detail.php -->
-<!-- Location: ./views/inquiry/hutang_supplier/v_rekap_detail.php -->
+<!-- End of file v_rekap_mesin_detail.php -->
+<!-- Location: ./views/inquiry/rekap/v_rekap_mesin_detail.php -->

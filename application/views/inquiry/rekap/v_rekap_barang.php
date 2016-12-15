@@ -15,7 +15,7 @@
     </thead>    
 </table>
 
-<div id="dlg-inquiry_rekap_detail"></div>
+<div id="dlg-inquiry_rekap_barang_detail"></div>
 
 <script type="text/javascript">
     var toolbar_inquiry_rekap_barang = [{
@@ -35,14 +35,14 @@
         onClickRow      : function(){
            $('#inquiry_rekap-detail').linkbutton('enable');
         },
-        url             : '<?php echo site_url('inquiry/rekap/showRekapBarang'); ?>?grid=true&rekap_proses='+rekap_proses+'&rekap_tgl='+rekap_tgl+'&rekap_periode='+rekap_periode});
+        url             : '<?php echo site_url('inquiry/rekap/showRekapBarang'); ?>?grid=true&rekap_proses='+rekap_proses+'&rekap_tgl_from='+rekap_tgl_from+'&rekap_tgl_to='+rekap_tgl_to});
         
     function inquiryRekapDetail(){            
         rowDetail = $('#grid-inquiry_rekap_barang').datagrid('getSelected');
         if (rowDetail){
-            var urlDetail     = '<?php echo site_url('inquiry/rekap/showRekapDetail'); ?>?rekap_item='+rowDetail.item_id+'&rekap_proses='+rekap_proses+'&rekap_tgl='+rekap_tgl+'&rekap_periode='+rekap_periode;
-            $('#dlg-inquiry_rekap_detail').dialog({
-                title   : 'Detail '+rowDetail.item_name,
+            var urlDetail     = '<?php echo site_url('inquiry/rekap/showRekapBarangDetail'); ?>?rekap_item='+rowDetail.m_item_id+'&rekap_proses='+rekap_proses+'&rekap_tgl_from='+rekap_tgl_from+'&rekap_tgl_to='+rekap_tgl_to;
+            $('#dlg-inquiry_rekap_barang_detail').dialog({
+                title   : 'Detail '+rowDetail.m_item_name,
                 width   : 500,
                 height  : 400,
                 modal   : true,
@@ -52,5 +52,5 @@
     }
 </script>
 
-<!-- End of file v_rekap.php -->
-<!-- Location: ./views/inquiry/hutang_supplier/v_rekap.php -->
+<!-- End of file v_rekap_barang.php -->
+<!-- Location: ./views/inquiry/rekap/v_rekap_barang.php -->
