@@ -1,14 +1,14 @@
-﻿/**
- * jQuery EasyUI 1.5
+/**
+ * EasyUI for jQuery 1.5.4.4
  * 
- * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
  *
  */
 /**
- * easyloader - jQuery EasyUI
+ * easyloader - EasyUI for jQuery
  * 
  */
 (function(){
@@ -154,6 +154,10 @@
 		combotreegrid:{
 			js:'jquery.combotreegrid.js',
 			dependencies:['combo','treegrid']
+		},
+		tagbox:{
+			js:'jquery.tagbox.js',
+			dependencies:['combobox']
 		},
 		validatebox:{
 			js:'jquery.validatebox.js',

@@ -1,14 +1,14 @@
-﻿/**
- * jQuery EasyUI 1.5
+/**
+ * EasyUI for jQuery 1.5.4.4
  * 
- * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
  *
  */
 /**
- * form - jQuery EasyUI
+ * form - EasyUI for jQuery
  * 
  */
 (function($){
@@ -284,6 +284,7 @@
 	 */
 	function clear(target){
 		$('input,select,textarea', target).each(function(){
+			if ($(this).hasClass('textbox-value')){return;}
 			var t = this.type, tag = this.tagName.toLowerCase();
 			if (t == 'text' || t == 'hidden' || t == 'password' || tag == 'textarea'){
 				this.value = '';
@@ -307,13 +308,15 @@
 			
 		});
 		
+		var tmp = $();
 		var form = $(target);
 		var opts = $.data(target, 'form').options;
-		for(var i=opts.fieldTypes.length-1; i>=0; i--){
+		for(var i=0; i<opts.fieldTypes.length; i++){
 			var type = opts.fieldTypes[i];
-			var field = form.find('.'+type+'-f');
+			var field = form.find('.'+type+'-f').not(tmp);
 			if (field.length && field[type]){
 				field[type]('clear');
+				tmp = tmp.add(field);
 			}
 		}
 		form.form('validate');
@@ -466,7 +469,7 @@
 	};
 	
 	$.fn.form.defaults = {
-		fieldTypes: ['combobox','combotree','combogrid','combotreegrid','datetimebox','datebox','combo',
+		fieldTypes: ['tagbox','combobox','combotree','combogrid','combotreegrid','datetimebox','datebox','combo',
 		        'datetimespinner','timespinner','numberspinner','spinner',
 		        'slider','searchbox','numberbox','passwordbox','filebox','textbox','switchbutton'],
 		novalidate: false,

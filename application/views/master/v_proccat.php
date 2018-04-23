@@ -9,6 +9,7 @@
             <th data-options="field:'ck',checkbox:true" ></th>
             <th data-options="field:'m_process_cat_id'"            width="100" align="center" halign="center" sortable="true">Kode Proses</th>
             <th data-options="field:'m_process_cat_name'"          width="200" align="left"   halign="center" sortable="true">Nama Proses</th>
+            <th data-options="field:'m_process_cat_table'"         width="200" align="left"   halign="center" sortable="true">Nama Tabel Proses</th>
         </tr>
     </thead>    
 </table>
@@ -19,6 +20,11 @@
         text    : 'New',
         iconCls : 'icon-new_file',
         handler : function(){masterProccatCreate();}
+    },{
+        id      : 'master_proccat-edit',
+        text    : 'Edit',
+        iconCls : 'icon-edit',
+        handler : function(){masterProccatUpdate();}
     },{
         id      : 'master_proccat-delete',
         text    : 'Delete',
@@ -33,12 +39,18 @@
     $('#grid-master_proccat').datagrid({
         onLoadSuccess   : function(){
             $('#master_proccat-delete').linkbutton('disable');
+            $('#master_proccat-edit').linkbutton('disable');
         },
         onSelect        : function(){
             $('#master_proccat-delete').linkbutton('enable');
+            $('#master_proccat-edit').linkbutton('enable');
         },
         onClickRow      : function(){
             $('#master_proccat-delete').linkbutton('enable');
+            $('#master_proccat-edit').linkbutton('enable');
+        },
+        onDblClickRow   : function(){
+            masterProccatUpdate();
         },
         view            :scrollview,
         remoteFilter    :true,
@@ -47,6 +59,7 @@
 
     function masterProccatRefresh() {
         $('#master_proccat-delete').linkbutton('disable');
+        $('#master_proccat-edit').linkbutton('disable');
         $('#grid-master_proccat').datagrid('reload');
     }
     
@@ -54,6 +67,18 @@
         $('#dlg-master_proccat').dialog({modal: true}).dialog('open').dialog('setTitle','Tambah Data');
         $('#fm-master_proccat').form('clear');
         url = '<?php echo site_url('master/proccat/create'); ?>';
+    }
+    
+    function masterProccatUpdate(){
+        var row = $('#grid-master_proccat').datagrid('getSelected');
+        if(row){
+            $('#dlg-master_proccat').dialog({modal: true}).dialog('open').dialog('setTitle','Edit Data');
+            $('#fm-master_proccat').form('load',row);
+            url = '<?php echo site_url('master/proccat/update'); ?>/' + row.m_process_cat_id;
+        }
+        else{
+             $.messager.alert('Info','Data belum dipilih !','info');
+        }
     }
     
     function masterProccatSave(){
@@ -158,11 +183,17 @@
 </style>
 
 <!-- ----------- -->
-<div id="dlg-master_proccat" class="easyui-dialog" style="width:400px; height:150px; padding: 10px 20px" closed="true" buttons="#dlg-buttons-master_proccat">
+<div id="dlg-master_proccat" class="easyui-dialog" style="width:450px; height:200px; padding: 10px 20px" closed="true" buttons="#dlg-buttons-master_proccat">
     <form id="fm-master_proccat" method="post" novalidate>        
         <div class="fproccat">
             <label for="type">Nama Proses</label>
             <input type="text" id="m_process_cat_name" name="m_process_cat_name" style="width:150px;" class="easyui-textbox" required="true"/>
+        </div>
+        <div class="fproccat">
+            <label for="type">Nama Tabel</label>
+            <input type="text" id="m_process_cat_table" name="m_process_cat_table" style="width:150px;" class="easyui-combobox" required="true"
+                data-options="url:'<?php echo site_url('master/proccat/getItemBom'); ?>',
+                method:'get', valueField:'TABLE_NAME', textField:'TABLE_NAME',panelHeight:'150'"/>
         </div>
     </form>
 </div>

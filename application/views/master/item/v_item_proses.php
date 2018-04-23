@@ -9,7 +9,7 @@
             <th data-options="field:'ck',checkbox:true" ></th>
             <th data-options="field:'m_process_seq'"        width="100"  align="center" halign="center" sortable="false">No. Proses</th>
             <th data-options="field:'m_process_cat_name'"       width="100"  align="center" halign="center" sortable="false">Nama Proses</th>
-            <th data-options="field:'m_process_loc'"        width="100"  align="center" halign="center" sortable="false" formatter="loc">Lokasi</th>
+            <th data-options="field:'m_process_loc'"        width="100"  align="center" halign="center" sortable="false" formatter="loc">Priority</th>
             <th data-options="field:'m_process_weight'"     width="100"  align="right"  halign="center" sortable="false">Berat Proses Gr</th>
         </tr>
     </thead>    
@@ -60,7 +60,7 @@
  
     function loc(value,row,index) {
         if(row.m_process_loc == 1){
-            return value='EKSTERNAL';
+            return value='SECONDARY';
         }
         else {
             return value='';
@@ -247,7 +247,7 @@
                 method:'get', valueField:'m_process_cat_id', textField:'m_process_cat_name', 
                 onSelect: function(rec){
                     var url = rec.m_process_cat_name;
-                    if(url.indexOf('Plating') >= 0){
+                    if(url.indexOf('Baking') >= 0){
                         $('#m_process_loc').combobox('setValue', 1);
                     }
                     else {
@@ -256,10 +256,10 @@
                 }, panelHeight:'150'"/>
         </div>
         <div class="fitem">
-            <label for="type">Lokasi</label>
+            <label for="type">Priority</label>
             <select id="m_process_loc" name="m_process_loc" class="easyui-combobox" data-options="panelHeight:'auto'" required="true">
-                <option value="0">INTERNAL</option>
-                <option value="1">EKSTERNAL</option>
+                <option value="0">PRIMARY</option>
+                <option value="1">SECONDARY</option>
             </select>
         </div>
         <div class="fitem">

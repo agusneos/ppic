@@ -1,14 +1,14 @@
-﻿/**
- * jQuery EasyUI 1.5
+/**
+ * EasyUI for jQuery 1.5.4.4
  * 
- * Copyright (c) 2009-2016 www.jeasyui.com. All rights reserved.
+ * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
  * Licensed under the freeware license: http://www.jeasyui.com/license_freeware.php
  * To use it on other terms please contact us: info@jeasyui.com
  *
  */
 /**
- * combobox - jQuery EasyUI
+ * combobox - EasyUI for jQuery
  * 
  * Dependencies:
  *   combo
@@ -120,7 +120,18 @@
 		}
 
 		// unselect the old rows
-		$.map($(target).combo('getValues'), function(v){
+		var oldValues = $(target).combo('getValues');
+		if (panel.is(':visible')){
+			panel.find('.combobox-item-selected').each(function(){
+				var row = opts.finder.getRow(target, $(this));
+				if (row){
+					if ($.easyui.indexOfArray(oldValues, row[opts.valueField]) == -1){
+						$(this).removeClass('combobox-item-selected');
+					}
+				}
+			});
+		}
+		$.map(oldValues, function(v){
 			if ($.easyui.indexOfArray(values, v) == -1){
 				var el = opts.finder.getEl(target, v);
 				if (el.hasClass('combobox-item-selected')){
@@ -144,6 +155,8 @@
 					el.addClass('combobox-item-selected');
 					opts.onSelect.call(target, row);
 				}
+			} else {
+				s = findText(v, opts.mappingRows) || v;
 			}
 			vv.push(v);
 			ss.push(s);
@@ -162,6 +175,11 @@
 		}
 		$(target).combo('setValues', vv);
 		panel.triggerHandler('scroll');	// trigger the group sticking
+
+		function findText(value, a){
+			var item = $.easyui.getArrayItem(a, opts.valueField, value);
+			return item ? item[opts.textField] : undefined;
+		}
 	}
 	
 	/**
@@ -215,7 +233,8 @@
 	function doQuery(target, q){
 		var state = $.data(target, 'combobox');
 		var opts = state.options;
-		
+
+		var highlightItem = $();
 		var qq = opts.multiple ? q.split(opts.separator) : [q];
 		if (opts.mode == 'remote'){
 			_setValues(qq);
@@ -230,6 +249,7 @@
 				q = $.trim(q);
 				var value = q;
 				var group = undefined;
+				highlightItem = $();
 				for(var i=0; i<data.length; i++){
 					var row = data[i];
 					if (opts.filter.call(target, q, row)){
@@ -239,7 +259,11 @@
 						var item = opts.finder.getEl(target, v).show();
 						if (s.toLowerCase() == q.toLowerCase()){
 							value = v;
-							select(target, v, true);
+							if (opts.reversed){
+								highlightItem = item;
+							} else {
+								select(target, v, true);
+							}
 						}
 						if (opts.groupField && group != g){
 							opts.finder.getGroupEl(target, g).show();
@@ -252,7 +276,11 @@
 			_setValues(vv);
 		}
 		function _setValues(vv){
-			setValues(target, opts.multiple ? (q?vv:[]) : vv, true);
+			if (opts.reversed){
+				highlightItem.addClass('combobox-item-hover');
+			} else {
+				setValues(target, opts.multiple ? (q?vv:[]) : vv, true);
+			}
 		}
 	}
 	
@@ -262,6 +290,7 @@
 		var panel = t.combobox('panel');
 		var item = panel.children('div.combobox-item-hover');
 		if (item.length){
+			item.removeClass('combobox-item-hover');
 			var row = opts.finder.getRow(target, item);
 			var value = row[opts.valueField];
 			if (opts.multiple){
@@ -303,11 +332,11 @@
 			}
 		}));
 
-		var p = $(target).combo('panel');
-		p.unbind('.combobox');
-		for(var event in opts.panelEvents){
-			p.bind(event+'.combobox', {target:target}, opts.panelEvents[event]);
-		}
+		// var p = $(target).combo('panel');
+		// p.unbind('.combobox');
+		// for(var event in opts.panelEvents){
+		// 	p.bind(event+'.combobox', {target:target}, opts.panelEvents[event]);
+		// }
 	}
 
 	function mouseoverHandler(e){
@@ -329,7 +358,12 @@
 		var item = $(e.target).closest('div.combobox-item');
 		if (!item.length || item.hasClass('combobox-item-disabled')){return}
 		var row = opts.finder.getRow(target, item);
-		if (!row){return}
+		if (!row){return;}
+		if (opts.blurTimer){
+			clearTimeout(opts.blurTimer);
+			opts.blurTimer = null;
+		}
+		opts.onClick.call(target, row);
 		var value = row[opts.valueField];
 		if (opts.multiple){
 			if (item.hasClass('combobox-item-selected')){
@@ -424,12 +458,23 @@
 		},
 		setValues: function(jq, values){
 			return jq.each(function(){
+				var opts = $(this).combobox('options');
+				if ($.isArray(values)){
+					values = $.map(values, function(value){
+						if (value && typeof value == 'object'){
+							$.easyui.addArrayItem(opts.mappingRows, opts.valueField, value);
+							return value[opts.valueField];
+						} else {
+							return value;
+						}
+					});
+				}
 				setValues(this, values);
 			});
 		},
 		setValue: function(jq, value){
 			return jq.each(function(){
-				setValues(this, $.isArray(value)?value:[value]);
+				$(this).combobox('setValues', $.isArray(value)?value:[value]);
 			});
 		},
 		clear: function(jq){
@@ -510,6 +555,7 @@
 			var row = {};
 			row[opts.valueField] = t.attr('value')!=undefined ? t.attr('value') : t.text();
 			row[opts.textField] = t.text();
+			row['iconCls'] = $.parser.parseOptions(el, ['iconCls']).iconCls;
 			row['selected'] = t.is(':selected');
 			row['disabled'] = t.is(':disabled');
 			if (group){
@@ -582,6 +628,8 @@
 		queryParams: {},
 		showItemIcon: false,
 		limitToList: false,	// limit the inputed values to the listed items
+		unselectedValues: [],
+		mappingRows: [],
 		view: defaultView,
 		
 		keyHandler: {
@@ -594,16 +642,42 @@
 		},
 		inputEvents: $.extend({}, $.fn.combo.defaults.inputEvents, {
 			blur: function(e){
+				$.fn.combo.defaults.inputEvents.blur(e);
 				var target = e.data.target;
 				var opts = $(target).combobox('options');
-				if (opts.limitToList){
-					doEnter(target);
+				if (opts.reversed || opts.limitToList){
+					if (opts.blurTimer){
+						clearTimeout(opts.blurTimer);
+					}
+					opts.blurTimer = setTimeout(function(){
+						var existing = $(target).parent().length;
+						if (existing){
+							if (opts.reversed){
+								$(target).combobox('setValues', $(target).combobox('getValues'));
+							} else if (opts.limitToList){
+								//doEnter(target);
+								var vv = [];
+								$.map($(target).combobox('getValues'), function(v){
+									var index = $.easyui.indexOfArray($(target).combobox('getData'), opts.valueField, v);
+									if (index >= 0){
+										vv.push(v);
+									}
+								});
+								$(target).combobox('setValues', vv);
+							}
+							opts.blurTimer = null;
+						}
+					},50);
 				}
 			}
 		}),
 		panelEvents: {
 			mouseover: mouseoverHandler,
 			mouseout: mouseoutHandler,
+			mousedown: function(e){
+				e.preventDefault();
+				e.stopPropagation();
+			},
 			click: clickHandler,
 			scroll: scrollHandler
 		},
@@ -659,9 +733,10 @@
 		},
 		
 		onBeforeLoad: function(param){},
-		onLoadSuccess: function(){},
+		onLoadSuccess: function(data){},
 		onLoadError: function(){},
 		onSelect: function(record){},
-		onUnselect: function(record){}
+		onUnselect: function(record){},
+		onClick: function(record){}
 	});
 })(jQuery);

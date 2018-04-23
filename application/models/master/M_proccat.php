@@ -3,6 +3,7 @@
 class M_proccat extends CI_Model
 {    
     static $table1  = 'm_process_cat';
+    static $table2  = 'INFORMATION_SCHEMA.TABLES';
 
     public function __construct() {
         parent::__construct();
@@ -78,17 +79,30 @@ class M_proccat extends CI_Model
         return json_encode($result);          
     }   
         
-    function create($m_process_cat_name)
+    function create($m_process_cat_name, $m_process_cat_table)
     {
         $query = $this->db->insert(self::$table1,array(
-            'm_process_cat_name'    => $m_process_cat_name
+            'm_process_cat_name'    => $m_process_cat_name,
+            'm_process_cat_table'   => $m_process_cat_table
         ));
-        if($query)
-        {
+        if($query){
             return json_encode(array('success'=>true));
         }
-        else
-        {
+        else{
+            return json_encode(array('success'=>false,'error'=>$this->db->_error_message()));
+        }
+    }
+    
+    function update($m_process_cat_id, $m_process_cat_name, $m_process_cat_table) {
+        $this->db->where('m_process_cat_id', $m_process_cat_id);
+        $query = $this->db->update(self::$table1,array(
+            'm_process_cat_name'    => $m_process_cat_name,
+            'm_process_cat_table'   => $m_process_cat_table
+        ));
+        if($query){
+            return json_encode(array('success'=>true));
+        }
+        else{
             return json_encode(array('success'=>false,'error'=>$this->db->_error_message()));
         }
     }
@@ -105,7 +119,19 @@ class M_proccat extends CI_Model
             return json_encode(array('success'=>false,'error'=>$this->db->_error_message()));
         }
     }
-      
+    
+    function getTable(){
+        $this->db->select('TABLE_NAME');
+        $this->db->where('TABLE_SCHEMA', 'ppic')
+                 ->like('TABLE_NAME', 't_proc_', 'after');
+        $query  = $this->db->get(self::$table2);
+                   
+        $data = array();
+        foreach ( $query->result() as $row ){
+            array_push($data, $row); 
+        }       
+        return json_encode($data);
+    }
 }
 
 /* End of file m_proccat.php */

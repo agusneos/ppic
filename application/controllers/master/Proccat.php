@@ -22,10 +22,22 @@ class Proccat extends CI_Controller {
         if(!isset($_POST))	
             show_404();
         
-        $m_process_cat_name = addslashes($_POST['m_process_cat_name']);
+        $m_process_cat_name  = addslashes($_POST['m_process_cat_name']);
+        $m_process_cat_table = addslashes($_POST['m_process_cat_table']);
                            
-        echo $this->record->create($m_process_cat_name);
+        echo $this->record->create($m_process_cat_name, $m_process_cat_table);
     }     
+    
+    function update($m_process_cat_id=null) {
+        if(!isset($_POST))	
+            show_404();
+        
+        $m_process_cat_name     = addslashes($_POST['m_process_cat_name']);
+        $m_process_cat_table    = addslashes($_POST['m_process_cat_table']);
+        
+        echo $this->record->update($m_process_cat_id, $m_process_cat_name, $m_process_cat_table);
+            
+    }
             
     function delete(){
         if(!isset($_POST))	
@@ -36,6 +48,9 @@ class Proccat extends CI_Controller {
         echo $this->record->delete($m_process_cat_name);
     }
     
+    function getItemBom(){
+        echo $this->record->getTable();
+    }
 }
 
 /* End of file proccat.php */

@@ -112,7 +112,7 @@ foreach($rows->result() as $data)
     
     $pdf->SetFont($font,'B',$size+6); // Size Font Item Name
     //$pdf->Cell(96,$height*2,$data->m_item_name,1,0,'C'); // Item Name
-    $pdf->MultiCell(96, $height, $data->m_item_name, 0, 'C');
+    $pdf->MultiCell(96, $height, utf8_decode($data->m_item_name), 0, 'C');
     $pdf->SetXY(96+10, ($height*8)-2);
     $pdf->Cell(32,$height*2,baking($data->m_item_baking),1,0,'C'); // BAKING
     $pdf->Ln($height*2);

@@ -2,17 +2,19 @@
 Ver 1.0
 2014-11-24
 
-Use jQuery EasyUI Ver. 1.5
-    * datagrid-filter (ada modif di operation penambahan (is))     -> http://www.jeasyui.com/easyui/datagrid-filter.js
+Use jQuery EasyUI       Ver. 1.5.4.x
+    * datagrid-filter (ada modif di operation penambahan (is) line 408)     -> http://www.jeasyui.com/easyui/datagrid-filter.js
     * datagrid-scrollview   -> http://www.jeasyui.com/easyui/datagrid-scrollview.js
-    * jquery.edatagrid      -> http://www.jeasyui.com/easyui/jquery.edatagrid.js
-Use PHPExcel			Ver. 1.8.0, 2014-03-02
+    * jquery.edatagrid      -> http://www.jeasyui.com/easyui/jquery.edatagrid.js    
+Use PHPExcel		Ver. 1.8.0, 2014-03-02
 Use Accounting.js	Ver. 0.4.1
 Use WebcamJS 		Ver. 1.0
-Use FPDF 				Ver. 1.8.1
-Use QRCode 			Ver. 0.99
-Use Codeigniter 		Ver. 2.2.6 end
-Folder System is safe for update
+Use FPDF 		Ver. 1.8.1
+Use QRCode 		Ver. 0.99
+Use Codeigniter 	Ver. 2.2.6 (END)
+    * Folder System is safe for update
+    * remove protected (protected function _compile_select($select_override = FALSE)) line 1674 ->/system/database/DB_active_rec.php
+    * add new function public function get_compiled_select($table = '', $reset = TRUE) line 2054 ->/system/database/DB_active_rec.php
 =============================================================
 // char $POST yang di convert otomatis menjadi underscore
 // chr(32) ( ) (space)
@@ -24,5 +26,3 @@ get json objects value if its name contains dot(.)
 ex.
 row.a.dept_id --> row['a_dept_id']
 
-remove protected (protected function _compile_select($select_override = FALSE)) line 1674 ->/system/database/DB_active_rec.php
-add new function public function get_compiled_select($table = '', $reset = TRUE) line 2054 ->/system/database/DB_active_rec.php
