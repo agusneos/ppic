@@ -638,7 +638,8 @@
 			}
 			data = opts.filterMatcher.call(target, {
 				total: state.filterSource.total,
-				rows: state.filterSource.rows
+				rows: state.filterSource.rows,
+				footer: state.filterSource.footer||[]
 			});
 
 			if (opts.pagination){
@@ -775,6 +776,12 @@
 			var d = opts.oldLoadFilter.call(this, data, parentId);
 			return myLoadFilter.call(this, d, parentId);
 		};
+		state.dc.view2.children('.datagrid-header').unbind('.filter').bind('focusin.filter', function(e){
+			var header = $(this);
+			setTimeout(function(){
+				state.dc.body2._scrollLeft(header._scrollLeft());
+			},0);
+		});
 		
 		initCss();
 		createFilter(true);

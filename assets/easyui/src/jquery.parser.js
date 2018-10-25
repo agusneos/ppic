@@ -1,5 +1,5 @@
 /**
- * EasyUI for jQuery 1.5.4.4
+ * EasyUI for jQuery 1.6.7
  * 
  * Copyright (c) 2009-2018 www.jeasyui.com. All rights reserved.
  *
@@ -80,9 +80,10 @@
 
 	$.parser = {
 		auto: true,
+		emptyFn: function(){},
 		onComplete: function(context){},
 		plugins:['draggable','droppable','resizable','pagination','tooltip',
-		         'linkbutton','menu','menubutton','splitbutton','switchbutton','progressbar',
+		         'linkbutton','menu','sidemenu','menubutton','splitbutton','switchbutton','progressbar','radiobutton','checkbox',
 				 'tree','textbox','passwordbox','maskedbox','filebox','combo','combobox','combotree','combogrid','combotreegrid','tagbox','numberbox','validatebox','searchbox',
 				 'spinner','numberspinner','timespinner','datetimespinner','calendar','datebox','datetimebox','slider',
 				 'layout','panel','datagrid','propertygrid','treegrid','datalist','tabs','accordion','window','dialog','form'
@@ -129,8 +130,10 @@
 			if (endchar == '%'){
 				v = parseFloat(v.substr(0, v.length-1));
 				if (property.toLowerCase().indexOf('width') >= 0){
+					delta += parent[0].offsetWidth-parent[0].clientWidth;
 					v = Math.floor((parent.width()-delta) * v / 100.0);
 				} else {
+					delta += parent[0].offsetHeight-parent[0].clientHeight;
 					v = Math.floor((parent.height()-delta) * v / 100.0);
 				}
 			} else {

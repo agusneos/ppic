@@ -140,12 +140,17 @@
     }
     
     function transaksiPoSave(){
+        $.messager.progress({
+            title:'Please wait',
+            msg:'Saving Data...'
+        });
         $('#fm-transaksi_po').form('submit',{
             url: url,
             onSubmit: function(){
                 return $(this).form('validate');
             },
             success: function(result){
+                $.messager.progress('close');
                 var result = eval('('+result+')');
                 if(result.success) 
                 {
@@ -169,11 +174,16 @@
     }
         
     function transaksiPoHapus(){
+        $.messager.progress({
+            title:'Please wait',
+            msg:'Deleting Data...'
+        });
         var row = $('#grid-transaksi_po').datagrid('getSelected');
         if (row){
             var win = $.messager.confirm('Konfirmasi','Anda yakin ingin menghapus PO \n'+row.t_po_header_no+' ?',function(r){
                 if (r){
                     $.post('<?php echo site_url('transaksi/po/delete'); ?>',{t_po_header_no:row.t_po_header_no},function(result){
+                        $.messager.progress('close');
                         if (result.success)
                         {
                             transaksiPoRefresh();
@@ -407,12 +417,17 @@
     }
     
     function transaksiPoDetailSave(){
+        $.messager.progress({
+            title:'Please wait',
+            msg:'Saving Data...'
+        });
         $('#fm-transaksi_po_detail').form('submit',{
             url: url,
             onSubmit: function(){
                 return $(this).form('validate');
             },
             success: function(result){
+                $.messager.progress('close');
                 var result = eval('('+result+')');
                 if(result.success) 
                 {
@@ -436,11 +451,16 @@
     }
     
     function transaksiPoDetailHapus(){
+        $.messager.progress({
+            title:'Please wait',
+            msg:'Deleting Data...'
+        });
         var row = $('#grid-transaksi_po_detail').datagrid('getSelected');
         if (row){
             var win = $.messager.confirm('Konfirmasi','Anda yakin ingin menghapus LOT \n'+row.t_po_detail_lot_no+' ?',function(r){
                 if (r){
                     $.post('<?php echo site_url('transaksi/po/detailDelete'); ?>',{t_po_detail_lot_no:row.t_po_detail_lot_no},function(result){
+                        $.messager.progress('close');
                         if (result.success)
                         {
                             transaksiPoDetailRefresh();
@@ -520,12 +540,13 @@
     }
     
     function transaksiGenerateProd(){
+        $.messager.progress({
+            title   :'Please waiting',
+            msg     :'Executing...'
+        });
         var row = $('#grid-transaksi_po_detail').datagrid('getSelected');
         if (row){
-            $.messager.progress({
-                title   :'Please waiting',
-                msg     :'Executing...'
-            });
+            
             $.post('<?php echo site_url('transaksi/po/detailGenerateProd'); ?>',{item_id:row.t_po_detail_item, prod_qty:row.t_po_detail_prod, lot:row.t_po_detail_lot_no},function(result){
             if (result.success)
             {

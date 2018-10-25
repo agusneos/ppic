@@ -257,6 +257,7 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 					if (state.onLoadSuccess){
 						opts.onLoadSuccess = state.onLoadSuccess;	// restore the onLoadSuccess event
 						state.onLoadSuccess = undefined;
+						state.originalRows = $.extend([],true,state.data.firstRows);
 					}
 					if (view.scrollTimer){
 						clearTimeout(view.scrollTimer);
@@ -612,7 +613,13 @@ var scrollview = $.extend({}, $.fn.datagrid.defaults.view, {
 				if (data.total){
 					this.reload.call(this, target);
 				} else {
-					$(target).datagrid('loadData', [])
+					// $(target).datagrid('loadData', [])
+					state.data.rows = [];
+					$(state.dc.body1).empty();
+					$(state.dc.body2).empty();
+					if (this.setEmptyMsg){
+						this.setEmptyMsg.call(this, target);
+					}
 				}
 				//this.reload.call(this, target);
 				return;
@@ -641,6 +648,7 @@ $.fn.datagrid.methods.baseUpdateRow = $.fn.datagrid.methods.updateRow;
 $.fn.datagrid.methods.baseGetRowIndex = $.fn.datagrid.methods.getRowIndex;
 $.fn.datagrid.methods.baseScrollTo = $.fn.datagrid.methods.scrollTo;
 $.fn.datagrid.methods.baseGotoPage = $.fn.datagrid.methods.gotoPage;
+$.fn.datagrid.methods.baseSetSelectionState = $.fn.datagrid.methods.setSelectionState;
 $.extend($.fn.datagrid.methods, {
 	updateRow: function(jq, param){
 		return jq.each(function(){
@@ -746,6 +754,22 @@ $.extend($.fn.datagrid.methods, {
 				}
 			}
 		});
+	},
+	setSelectionState: function(jq){
+		return jq.each(function(){
+			var target = this;
+			var opts = $(target).datagrid('options');
+			if (opts.view.type == 'scrollview'){
+				$(target).datagrid('baseSetSelectionState');
+				var state = $(target).data('datagrid');
+				if (state.data.firstRows.length != state.checkedRows.length){
+					var dc = state.dc;
+					dc.header1.add(dc.header2).find('input[type=checkbox]')._propAttr('checked', false);
+				}
+			} else {
+				$(target).datagrid('baseSetSelectionState');
+			}
+		})
 	}
 });
 

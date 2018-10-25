@@ -1,14 +1,45 @@
-Version 1.5.4.x
----------------
+Version 1.6.x
+-------------
+* Bug
+ * sidemenu: The tooltip has a wrong position when the 'floatMenuPosition' is set to 'left'. fixed.
+ * datagrid: The horizontal scrollbar has a wrong state when the 'showHeader' is set to true. fixed.
+ * combo: The initialized value will trigger the form's 'onChange' event when the 'multiple' is set to true. fixed.
+ * panel: The horizontal panel doesn't work normally when 'noheader' property is set to true. fixed.
+* Improvement
+ * tree: Add 'findBy' method to find a node by any fields.
+ * tree: The 'find' method is enhanced to find a node easily.
+
+Version 1.6.0
+-------------
+* Bug
+ * maskedbox: The component does not accept numeric keypad. fixed.
+ * combogrid: When selecting multiple records, the datagrid will scroll to the last checked record. fixed.
+* Improvement
+ * Compatible with jQuery 3.x.
+ * tabs: The 'toolPosition' property can accept 'top' and 'bottom' values.
+ * textbox: The textbox label has the animating feature when focus or blur on it.
+ * tooltip: Add 'valign' property.
+ * tree: The node class can be initialized by setting the 'nodeCls' in the data.
+* New Plugins
+ * sidemenu: The sidemenu is created from accordion and tree plugins. It builds a collapsible menu with some categories.
+ * radiobutton: This plugin provides a round interface to select one option from a number of options.
+ * checkbox: This plugin allows a user to select a value from a small set of options.
+
+Version 1.5.5
+-------------
 * Bug
  * tabs: The selecting history has wrong order when the title contains complex elements. fixed.
  * combo: The drop-down panel may not be hidden if a bigger 'delay' value is set. fixed.
  * layout: The expanding panel does not collapse when move mouse quickly away from it. fixed.
+ * tagbox: The tagbox and the label don't stay in the same line. fixed.
 * Improvement
  * combo: The 'blur' event handler is attached to the 'inputEvents' property.
  * numberbox: The 'cloneFrom' method is available.
  * slider: The 'step' property can be set with a floating number.
  * menu: The 'findItem' method allows the user to find menu item by any parameters.
+ * menubutton: Add 'showEvent' and 'hideEvent' properties.
+* New Plugins
+ * maskedbox: The maskedbox enforces its structure as the user types.
 
 Version 1.5.4
 -------------

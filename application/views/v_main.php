@@ -170,7 +170,7 @@
         </div> 
         <!-- bottom -->
         <div data-options="region:'south',split:false" style="height:100px;">
-            <h1 align="center">Aplikasi PPIC Ver. 1.0</h1>
+            <h1 align="center">Aplikasi PPIC Ver. 2.0</h1>
             <center>©2016 PT. Sagateknindo Sejati. All Rights Reserved.</center>
         </div>
         

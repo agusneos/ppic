@@ -2,10 +2,10 @@
 Ver 1.0
 2014-11-24
 
-Use jQuery EasyUI       Ver. 1.5.4.x
-    * datagrid-filter (ada modif di operation penambahan (is) line 408)     -> http://www.jeasyui.com/easyui/datagrid-filter.js
+Use jQuery EasyUI       Ver. 1.6.7.x
+    * datagrid-filter (ada modif di operation penambahan (is) line 412)     -> http://www.jeasyui.com/easyui/datagrid-filter.js
     * datagrid-scrollview   -> http://www.jeasyui.com/easyui/datagrid-scrollview.js
-    * jquery.edatagrid      -> http://www.jeasyui.com/easyui/jquery.edatagrid.js    
+    * jquery.edatagrid      -> http://www.jeasyui.com/easyui/jquery.edatagrid.js
 Use PHPExcel		Ver. 1.8.0, 2014-03-02
 Use Accounting.js	Ver. 0.4.1
 Use WebcamJS 		Ver. 1.0
