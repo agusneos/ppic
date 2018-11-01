@@ -20,6 +20,7 @@ class M_kartuorder extends CI_Model
     }
           
     function getLot(){
+        $this->db->select('t_po_detail_lot_no');
         $query  = $this->db->get(self::$table2);
                    
         $data = array();

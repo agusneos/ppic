@@ -38,7 +38,7 @@
         handler : function(){reportKartuorderLotPrintSelected();}
     }];
 
-    $('#grid-report_kartuorder_lot').datagrid({        
+    $('#grid-report_kartuorder_lot').datagrid({
         view            :scrollview,
         url             :'<?php echo site_url('report/kartuorder/lot'); ?>?grid=true&nilailot='+report_lot,
         remoteFilter    :true})

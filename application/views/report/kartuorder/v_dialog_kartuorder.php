@@ -51,8 +51,12 @@
                 href    : '<?php echo site_url('report/kartuorder/lot'); ?>?nilailot='+report_lot,
                 width   : 400,
                 height  : 400,
-                modal   : true
-            });$('#dlg').dialog('close');           
+                modal   : true,
+                cache   : false,
+                closed  : true
+            });
+            $('#dlg').dialog('close');
+            $('#dlg-report_kartuorder_lot').dialog('open');
         }          
     }
     
